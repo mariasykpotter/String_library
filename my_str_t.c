@@ -25,25 +25,22 @@ size_t my_strlen(const char *str) {
 //! змінної, без виклику my_str_free, вестиме до memory leak.
 //! Повертає 0, якщо все ОК, від'ємні числа, якщо сталася помилка.
 int my_str_create(my_str_t *str, size_t buf_size) {
-    if (!str) {
+    if (!str || buf_size < 0) {
         return -1;
     }
     char *data = (char *) malloc(sizeof(char) * (buf_size + 1));
     str->capacity_m = buf_size;
     str->size_m = 0;
+    str->data = data;
+	if (str->data == NULL)
+		return -2;
     return 0;
 }
 
 //! Звільняє пам'ять, знищуючи стрічку.
 //! Аналог деструктора інших мов.
 void my_str_free(my_str_t *str) {
-    if (!str) {
-        return -1;
-    }
     free(str->data);
-    str->data = 0;
-    str->size_m = 0;
-    str->capacity_m = 0;
 }
 
 //! Створити стрічку із буфером вказаного розміру із переданої С-стрічки.
@@ -55,15 +52,17 @@ void my_str_free(my_str_t *str) {
 //! 0 -- якщо все ОК, -1 -- недостатній розмір буфера, -2 -- не вдалося виділити пам'ять
 int my_str_from_cstr(my_str_t *str, const char *cstr, size_t buf_size) {
     size_t str_len = my_strlen(cstr);
-    if (!str) {
-        return -1;
-    }
+    if (!buf_size)
+    	buf_size = str_len;
+
     if (buf_size < str_len) {
         return -1;
     }
     str->capacity_m = buf_size;
     str->size_m = str_len;
-    str->data = (char *) malloc(sizeof(char) * buf_size + 1);
+    str->data = (char *) malloc(sizeof(char) * (buf_size + 1));
+    if (str->data == NULL)
+    	return -2;
     memcpy(str->data, cstr, str->size_m);
     return 0;
 }
@@ -87,7 +86,7 @@ size_t my_str_capacity(const my_str_t *str) {
 
 //! Повертає булеве значення, чи стрічка порожня:
 int my_str_empty(const my_str_t *str) {
-    return my_str_size(str) == 0 || !str;
+    return my_str_size(str) == 0;
 }
 
 //!===========================================================================
@@ -141,13 +140,33 @@ const char *my_str_get_cstr(my_str_t *str) {
 //! Повертає 0, якщо успішно,
 //! -1 -- якщо передано нульовий вказівник,
 //! -2 -- помилка виділення додаткової пам'яті.
-int my_str_pushback(my_str_t *str, char c);
+int my_str_pushback(my_str_t *str, char c){
+	int status_code = 0;
+	if (str == 0)
+		return -1;
+	if (str->size_m + 1 > str->capacity_m)
+		status_code = my_str_reserve(str, str->capacity_m * 2);
+	if (status_code == -2)
+		return -2;
+	*(str->data + str->size_m) = c;
+	return 0;
+}
 
 //! Викидає символ з кінця.
 //! Повертає його, якщо успішно,
 //! -1 -- якщо передано нульовий вказівник,
 //! -2 -- якщо стрічка порожня.
-int my_str_popback(my_str_t *str);
+int my_str_popback(my_str_t *str){
+	if (str == 0)
+		return -1;
+	if (str->size_m == 0)
+		return -2;
+
+	str->size_m = str->size_m - 1;
+	// *(str->data + str->size_m) = '';
+
+	return 0;
+}
 
 //! Копіює стрічку. Якщо reserve == true,
 //! то із тим же розміром буферу, що й вихідна,
@@ -155,18 +174,34 @@ int my_str_popback(my_str_t *str);
 //! (Старий вміст стрічки перед тим звільняє, за потреби).
 //! Повертає 0, якщо успішно, різні від'ємні числа для діагностики
 //! проблеми некоректних аргументів.
-int my_str_copy(const my_str_t *from, my_str_t *to, int reserve);
+int my_str_copy(const my_str_t *from, my_str_t *to, int reserve){
+	if (!from->data || !to->data)
+		return -1;
+	int status_code = 0;
+	size_t new_capacity = reserve ? from->capacity_m : from->size_m;
+	my_str_free(to);
+	status_code = my_str_create(to, new_capacity);
+	memcpy(to->data, from->data, sizeof(char)*new_capacity);
+	if (status_code)
+		return -2;
+	return 0;
+}
 
 //! Очищає стрічку -- робить її порожньою. Складність має бути О(1).
 //! Уточнення (чомусь ця ф-ція викликала багато непорозумінь):
 //! стрічка продовжує існувати, буфер той самий, того ж розміру, що був,
 //! лише містить 0 символів -- єдине, що вона робить, це size_m = 0.
-void my_str_clear(my_str_t *str);
+void my_str_clear(my_str_t *str){
+	str->size_m = 0;
+}
 
 //! Вставити символ у стрічку в заданій позиції, змістивши решту символів праворуч.
 //! За потреби -- збільшує буфер.
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
-int my_str_insert_c(my_str_t *str, char c, size_t pos);
+int my_str_insert_c(my_str_t *str, char c, size_t pos){
+
+	return 0;
+}
 
 //! Вставити стрічку в заданій позиції, змістивши решту символів праворуч.
 //! За потреби -- збільшує буфер.
@@ -228,7 +263,13 @@ int my_str_reserve(my_str_t *str, size_t buf_size) {
 //! так, щоб capacity_m == size_t. Єдиний "офіційний"
 //! спосіб зменшити фактичний розмір буфера.
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
-int my_str_shrink_to_fit(my_str_t *str);
+int my_str_shrink_to_fit(my_str_t *str){
+	if (str->data == 0)
+		return -1;
+
+
+	return 0;
+}
 
 //! Якщо new_size менший за поточний розмір -- просто
 //! відкидає зайві символи (зменшуючи size_m). Якщо
