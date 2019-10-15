@@ -247,11 +247,14 @@ int my_str_substr_cstr(const my_str_t *from, char *to, size_t beg, size_t end);
 //! решту буфера) із старого буфера та звільняє його.
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
 int my_str_reserve(my_str_t *str, size_t buf_size) {
-	if (buf_size <= my_str_capacity(str)) {
+	if (str->data == 0)
+		return -1;
+	if (buf_size <= my_str_capacity(str))
 		return 0;
-	}
 
-	char *new_data = (char *) malloc(sizeof(char) * buf_size + 1);
+	char *new_data = (char *) malloc(sizeof(char) * (buf_size + 1));
+	if (new_data == NULL)
+		return -2;
 	memcpy(str->data, new_data, my_str_size(str));
 	str->data = new_data;
 	str->capacity_m = buf_size;
@@ -264,10 +267,10 @@ int my_str_reserve(my_str_t *str, size_t buf_size) {
 //! спосіб зменшити фактичний розмір буфера.
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
 int my_str_shrink_to_fit(my_str_t *str){
-	if (str->data == 0)
+	if (str->data == 0 || str->size_m > str->capacity_m)
 		return -1;
 
-
+	str->capacity_m = str->size_m;
 	return 0;
 }
 
@@ -279,7 +282,22 @@ int my_str_shrink_to_fit(my_str_t *str){
 //! Сподіваюся, різниця між розміром буфера та фактичним
 //! розміром стрічки зрозуміла?
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
-int my_str_resize(my_str_t *str, size_t new_size, char sym);
+int my_str_resize(my_str_t *str, size_t new_size, char sym){
+	if (str->data == 0 || new_size < 0)
+		return -1;
+	if (new_size < str->size_m){
+		str->size_m = new_size;
+		return 0;
+	}
+	int code_status = my_str_reserve(str, new_size*2);
+	if (code_status == -2)
+		return -2;
+
+	for (size_t i = str->size_m; i < new_size; i++)
+		*(str->data + i) = sym;
+
+	return 0;
+}
 
 //!===========================================================================
 //! Функції пошуку та порівняння
@@ -288,29 +306,80 @@ int my_str_resize(my_str_t *str, size_t new_size, char sym);
 //! Знайти першу підстрічку в стрічці, повернути номер її
 //! початку або (size_t)(-1), якщо не знайдено. from -- місце, з якого починати шукати.
 //! Якщо більше за розмір -- вважати, що не знайдено.
-size_t my_str_find(const my_str_t *str, const my_str_t *tofind, size_t from);
+size_t my_str_find(const my_str_t *str, const my_str_t *tofind, size_t from){
+	if (from > str->size_m)
+		return (size_t)(-1);
+	for (size_t i = from; i < str->size_m; i++){
+		int f = 0;
+		for (size_t j = 0; j < tofind->size_m; j++)
+			if (*(str->data + i + j) != *(tofind->data + j)){
+				f = 1;
+				break;
+			}
+		if (!f)
+			return i;
+	}
+	return (size_t)(-1);
+}
 
 //! Порівняти стрічки, повернути 0, якщо рівні (за вмістом!)
 //! -1 (або інше від'ємне значення), якщо перша менша,
 //! 1 (або інше додатне значення) -- якщо друга.
 //! Поведінка має бути такою ж, як в strcmp.
-int my_str_cmp(const my_str_t *str1, const my_str_t *str2);
+int my_str_cmp(const my_str_t *str1, const my_str_t *str2){
+	int i = 0;
+	while(i < str1->size_m && i < str2->size_m){
+		if (*(str1->data + i) < *(str2->data + i))
+			return -1;
+		if (*(str1->data + i) > *(str2->data + i))
+			return -1;
+		i++;
+	}
+	if (str1->size_m < str2->size_m)
+		return -1;
+	return 1;
+}
 
 //! Порівняти стрічку із С-стрічкою, повернути 0, якщо рівні (за вмістом!)
 //! -1 (або інше від'ємне значення), якщо перша менша,
 //! 1 (або інше додатне значення) -- якщо друга.
 //! Поведінка має бути такою ж, як в strcmp.
-int my_str_cmp_cstr(const my_str_t *str1, const char *cstr2);
+int my_str_cmp_cstr(const my_str_t *str1, const char *cstr2){
+	int i = 0;
+	while(i < str1->size_m && i < my_strlen(cstr2)){
+		if (*(str1->data + i) < *(cstr2 + i))
+			return -1;
+		if (*(str1->data + i) > *(cstr2 + i))
+			return -1;
+		i++;
+	}
+	if (str1->size_m < my_strlen(cstr2))
+		return -1;
+	return 1;
+
+}
 
 //! Знайти перший символ в стрічці, повернути його номер
 //! або (size_t)(-1), якщо не знайдено. from -- місце, з якого починати шукати.
 //! Якщо більше за розмір -- вважати, що не знайдено.
-size_t my_str_find_c(const my_str_t *str, char tofind, size_t from);
+size_t my_str_find_c(const my_str_t *str, char tofind, size_t from){
+	if (from > str->size_m)
+		return (size_t)(-1);
+	for (size_t i = from; i < str->size_m; ++i)
+		if (*(str->data + i) == tofind)
+			return i;
+	return (size_t)(-1);
+}
 
 //! Знайти символ в стрічці, для якого передана
 //! функція повернула true, повернути його номер
 //! або (size_t)(-1), якщо не знайдено:
-size_t my_str_find_if(const my_str_t *str, int (*predicat)(int));
+size_t my_str_find_if(const my_str_t *str, int (*predicat)(int)){
+	for (size_t i = 0; i < str->size_m; ++i)
+		if (predicat((int)(*(str->data + i))))
+			return i;
+	return (size_t)(-1);
+}
 
 //!===========================================================================
 //! Ввід-вивід
@@ -321,10 +390,30 @@ size_t my_str_find_if(const my_str_t *str, int (*predicat)(int));
 //! збільшуйте буфер.
 //! Рекомендую скористатися fgets().
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
-int my_str_read_file(my_str_t *str, FILE *file);
+int my_str_read_file(my_str_t *str, FILE *file){
+	if (file==NULL){
+		return -1;
+	}
+	while(!feof (file)) {
+		if (fgets(str->data, (int)(str->capacity_m - str->size_m + 1), file)) {
+			if (str->capacity_m == str->size_m)
+				my_str_reserve(str, str->capacity_m * 2);
+			continue;
+		}
+		return -2;
+	}
+	str->size_m--;
+	fclose(file);
+	return 0;
+}
 
 //! Аналог my_str_read_file, із stdin.
-int my_str_read(my_str_t *str);
+int my_str_read(my_str_t *str){
+	while(fgets(str->data, (int)(str->capacity_m - str->size_m + 1), stdin)) {
+	}
+	str->size_m--;
+	return 0;
+}
 
 //! Записати стрічку в файл:
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.

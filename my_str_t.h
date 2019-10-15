@@ -8,15 +8,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-size_t my_strlen(const char* str);
-
 typedef struct
 {
-    size_t capacity_m; // Розмір блока
-    size_t size_m;	   // Фактичний розмір стрічки
-    char*  data;	   // Вказівник на блок пам'яті
+	size_t capacity_m; // Розмір блока
+	size_t size_m;	   // Фактичний розмір стрічки
+	char*  data;	   // Вказівник на блок пам'яті
 } my_str_t;
+
+size_t my_strlen(const char* str);
 
 //!===========================================================================
 //! Створення та знищення стрічки.
