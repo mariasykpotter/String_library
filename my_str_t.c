@@ -1,9 +1,9 @@
 #include "my_str_t.h"
 
 size_t my_strlen(const char *str) {
-    size_t index = 0;
-    while (str[index++] != '\0');
-    return index;
+	size_t index = 0;
+	while (str[index++] != '\0');
+	return index;
 }
 
 //!===========================================================================
@@ -25,22 +25,22 @@ size_t my_strlen(const char *str) {
 //! змінної, без виклику my_str_free, вестиме до memory leak.
 //! Повертає 0, якщо все ОК, від'ємні числа, якщо сталася помилка.
 int my_str_create(my_str_t *str, size_t buf_size) {
-    if (!str || buf_size < 0) {
-        return -1;
-    }
-    char *data = (char *) malloc(sizeof(char) * (buf_size + 1));
-    str->capacity_m = buf_size;
-    str->size_m = 0;
-    str->data = data;
+	if (!str || buf_size < 0) {
+		return -1;
+	}
+	char *data = (char *) malloc(sizeof(char) * (buf_size + 1));
+	str->capacity_m = buf_size;
+	str->size_m = 0;
+	str->data = data;
 	if (str->data == NULL)
 		return -2;
-    return 0;
+	return 0;
 }
 
 //! Звільняє пам'ять, знищуючи стрічку.
 //! Аналог деструктора інших мов.
 void my_str_free(my_str_t *str) {
-    free(str->data);
+	free(str->data);
 }
 
 //! Створити стрічку із буфером вказаного розміру із переданої С-стрічки.
@@ -51,20 +51,20 @@ void my_str_free(my_str_t *str) {
 //! Коди завершення:
 //! 0 -- якщо все ОК, -1 -- недостатній розмір буфера, -2 -- не вдалося виділити пам'ять
 int my_str_from_cstr(my_str_t *str, const char *cstr, size_t buf_size) {
-    size_t str_len = my_strlen(cstr);
-    if (!buf_size)
-    	buf_size = str_len;
+	size_t str_len = my_strlen(cstr);
+	if (!buf_size)
+		buf_size = str_len;
 
-    if (buf_size < str_len) {
-        return -1;
-    }
-    str->capacity_m = buf_size;
-    str->size_m = str_len;
-    str->data = (char *) malloc(sizeof(char) * (buf_size + 1));
-    if (str->data == NULL)
-    	return -2;
-    memcpy(str->data, cstr, str->size_m);
-    return 0;
+	if (buf_size < str_len) {
+		return -1;
+	}
+	str->capacity_m = buf_size;
+	str->size_m = str_len;
+	str->data = (char *) malloc(sizeof(char) * (buf_size + 1));
+	if (str->data == NULL)
+		return -2;
+	memcpy(str->data, cstr, str->size_m);
+	return 0;
 }
 
 
@@ -75,18 +75,18 @@ int my_str_from_cstr(my_str_t *str, const char *cstr, size_t buf_size) {
 //! Повертає розмір стрічки.
 //! Для нульового вказівника -- 0.
 size_t my_str_size(const my_str_t *str) {
-    return str == 0 ? 0 : str->size_m;
+	return str == 0 ? 0 : str->size_m;
 }
 
 //! Повертає розмір буфера.
 //! Для нульового вказівника -- 0.
 size_t my_str_capacity(const my_str_t *str) {
-    return str == 0 ? 0 : str->capacity_m;
+	return str == 0 ? 0 : str->capacity_m;
 }
 
 //! Повертає булеве значення, чи стрічка порожня:
 int my_str_empty(const my_str_t *str) {
-    return my_str_size(str) == 0;
+	return my_str_size(str) == 0;
 }
 
 //!===========================================================================
@@ -97,22 +97,22 @@ int my_str_empty(const my_str_t *str) {
 //! включаючи переданий нульовий вказівник.
 //! Тому, власне, int а не char
 int my_str_getc(const my_str_t *str, size_t index) {
-    if (str == 0 || index >= my_str_size(str)) {
-        return -1;
-    }
+	if (str == 0 || index >= my_str_size(str)) {
+		return -1;
+	}
 
-    return str->data[index];
+	return str->data[index];
 }
 
 //! Записує символ у вказану позиції (заміняючи той, що там був),
 //! Повертає 0, якщо позиція в межах стрічки,
 //! Поветає -1, не змінюючи її вмісту, якщо ні.
 int my_str_putc(my_str_t *str, size_t index, char c) {
-    if (index < 0 || index >= my_str_size(str) || !str) {
-        return -1;
-    }
-    str->data[index] = c;
-    return 0;
+	if (index < 0 || index >= my_str_size(str) || !str) {
+		return -1;
+	}
+	str->data[index] = c;
+	return 0;
 }
 
 //! Повернути вказівник на С-стрічку, еквівалентну str.
@@ -122,10 +122,10 @@ int my_str_putc(my_str_t *str, size_t index, char c) {
 //! Якщо в буфері було зарезервовано на байт більше за макс. розмір, можна
 //! просто додати нульовий символ в кінці та повернути вказівник data.
 const char *my_str_get_cstr(my_str_t *str) {
-    if (!str || !(str->data))
-        return NULL;
-    *(str->data + str->size_m) = '\0';
-    return str->data;
+	if (!str || !(str->data))
+		return NULL;
+	*(str->data + str->size_m) = '\0';
+	return str->data;
 }
 
 //!===========================================================================
@@ -247,15 +247,15 @@ int my_str_substr_cstr(const my_str_t *from, char *to, size_t beg, size_t end);
 //! решту буфера) із старого буфера та звільняє його.
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
 int my_str_reserve(my_str_t *str, size_t buf_size) {
-    if (buf_size <= my_str_capacity(str)) {
-        return 0;
-    }
+	if (buf_size <= my_str_capacity(str)) {
+		return 0;
+	}
 
-    char *new_data = (char *) malloc(sizeof(char) * buf_size + 1);
-    memcpy(str->data, new_data, my_str_size(str));
-    str->data = new_data;
-    str->capacity_m = buf_size;
-    return 0;
+	char *new_data = (char *) malloc(sizeof(char) * buf_size + 1);
+	memcpy(str->data, new_data, my_str_size(str));
+	str->data = new_data;
+	str->capacity_m = buf_size;
+	return 0;
 
 }
 
