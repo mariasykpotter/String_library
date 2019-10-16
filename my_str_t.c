@@ -234,7 +234,9 @@ int my_str_getc(const my_str_t *str, size_t index) {
 //! Вставити C-стрічку в заданій позиції, змістивши решту символів праворуч.
 //! За потреби -- збільшує буфер.
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
-        int my_str_insert_cstr(my_str_t *str, const char *from, size_t pos);
+        int my_str_insert_cstr(my_str_t *str, const char *from, size_t pos){
+
+}
 
 //! Додати стрічку в кінець.
 //! За потреби -- збільшує буфер.

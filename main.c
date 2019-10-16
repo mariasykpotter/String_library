@@ -5,5 +5,6 @@
 
 int main(int argc, char *argv[]) {
     my_str_t str;
-    my_str_read_file()
+    size_t n = 3;
+    my_str_create(str, n)
 }
