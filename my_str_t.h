@@ -8,14 +8,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+
 typedef struct
 {
-	size_t capacity_m; // Розмір блока
-	size_t size_m;	   // Фактичний розмір стрічки
-	char*  data;	   // Вказівник на блок пам'яті
+    size_t capacity_m; // Розмір блока
+    size_t size_m;	   // Фактичний розмір стрічки
+    char*  data;	   // Вказівник на блок пам'яті
 } my_str_t;
 
-size_t my_strlen(const char* str);
+
+static size_t my_strlen(const char* str);
+
+static int my_str_insert_length(my_str_t* str, const char* from, size_t pos, size_t length);
 
 //!===========================================================================
 //! Створення та знищення стрічки.
@@ -50,10 +55,6 @@ void my_str_free(my_str_t* str);
 //! 0 -- якщо все ОК, -1 -- недостатній розмір буфера, -2 -- не вдалося виділити пам'ять
 int my_str_from_cstr(my_str_t* str, const char* cstr, size_t buf_size);
 
-//! Звільняє пам'ять, знищуючи стрічку.
-//! Аналог деструктора інших мов.
-//! Ремарка: free() нормально працює із NULL.
-void my_str_free(my_str_t* str);
 
 //!============================================================================
 //! Інформація про стрічку
