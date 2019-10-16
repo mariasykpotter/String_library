@@ -5,7 +5,6 @@ size_t my_strlen(const char *str) {
     while (str[index++] != '\0');
     return index;
 }
-
 //!===========================================================================
 //! Створення та знищення стрічки.
 //!===========================================================================
@@ -101,7 +100,6 @@ int my_str_getc(const my_str_t *str, size_t index) {
     if (str == 0 || index >= my_str_size(str)) {
         return -1;
     }
-
     return str->data[index];
 }
 
@@ -141,21 +139,45 @@ const char *my_str_get_cstr(my_str_t *str) {
 //! Повертає 0, якщо успішно,
 //! -1 -- якщо передано нульовий вказівник,
 //! -2 -- помилка виділення додаткової пам'яті.
-int my_str_pushback(my_str_t *str, char c);
+int my_str_pushback(my_str_t *str, char c) {
+    if (!str->data) {
+        return -1;
+    }
+    if (str->capacity_m < str->size_m) {
+        return -2;
+    }
+    *(str->data + str->size_m++) = c;
+    return 0;
+}
 
 //! Викидає символ з кінця.
 //! Повертає його, якщо успішно,
 //! -1 -- якщо передано нульовий вказівник,
 //! -2 -- якщо стрічка порожня.
-int my_str_popback(my_str_t *str);
-
+int my_str_popback(my_str_t *str) {
+    if (!str) {
+        return -2;
+    }
+    if (!str->data) {
+        return -1;
+    }
+    if (0 < str->size_m <= str->capacity_m) {
+        char pop_value = *(str->data + str->size_m - 1);
+        *(str->data + --str->size_m) = 0;
+        return pop_value;
+    }
+}
 //! Копіює стрічку. Якщо reserve == true,
 //! то із тим же розміром буферу, що й вихідна,
 //! інакше -- із буфером мінімального достатнього розміру.
 //! (Старий вміст стрічки перед тим звільняє, за потреби).
 //! Повертає 0, якщо успішно, різні від'ємні числа для діагностики
 //! проблеми некоректних аргументів.
-int my_str_copy(const my_str_t *from, my_str_t *to, int reserve);
+int my_str_copy(const my_str_t *from, my_str_t *to, int reserve){
+    if (reserve == 1){
+
+    }
+}
 
 //! Очищає стрічку -- робить її порожньою. Складність має бути О(1).
 //! Уточнення (чомусь ця ф-ція викликала багато непорозумінь):
@@ -213,9 +235,8 @@ int my_str_substr_cstr(const my_str_t *from, char *to, size_t beg, size_t end);
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
 int my_str_reserve(my_str_t *str, size_t buf_size) {
     if (buf_size <= my_str_capacity(str)) {
-        return 0;
+        return -1;
     }
-
     char *new_data = (char *) malloc(sizeof(char) * buf_size + 1);
     memcpy(str->data, new_data, my_str_size(str));
     str->data = new_data;
