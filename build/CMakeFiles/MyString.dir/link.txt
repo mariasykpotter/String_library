@@ -1,2 +1,0 @@
-C:/MinGW/bin/ar.exe qc libMyString.a  CMakeFiles/MyString.dir/my_str_t.c.obj
-C:/MinGW/bin/ranlib.exe libMyString.a

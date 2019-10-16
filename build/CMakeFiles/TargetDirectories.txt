@@ -1,4 +1,0 @@
-C:/Users/Marianna Petrivska/CLionProjects/string_library/build/CMakeFiles/MyString.dir
-C:/Users/Marianna Petrivska/CLionProjects/string_library/build/CMakeFiles/Program.dir
-C:/Users/Marianna Petrivska/CLionProjects/string_library/build/CMakeFiles/edit_cache.dir
-C:/Users/Marianna Petrivska/CLionProjects/string_library/build/CMakeFiles/rebuild_cache.dir
