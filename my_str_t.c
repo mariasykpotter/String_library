@@ -134,31 +134,31 @@ int my_str_getc(const my_str_t *str, size_t index) {
 //! Повертає 0, якщо успішно,
 //! -1 -- якщо передано нульовий вказівник,
 //! -2 -- помилка виділення додаткової пам'яті.
-        int my_str_pushback(my_str_t *str, char c) {
-            int status_code = 0;
-            if (str == 0)
-                return -1;
-            if (str->size_m + 1 > str->capacity_m)
-                status_code = my_str_reserve(str, str->capacity_m * 2);
-            if (status_code == -2)
-                return -2;
-            *(str->data + str->size_m) = c;
-            return 0;
-        }
+    int my_str_pushback(my_str_t *str, char c) {
+        int status_code = 0;
+        if (str == 0)
+            return -1;
+        if (str->size_m + 1 > str->capacity_m)
+            status_code = my_str_reserve(str, str->capacity_m * 2);
+        if (status_code == -2)
+            return -2;
+        *(str->data + str->size_m) = c;
+        return 0;
+    }
 
 //! Викидає символ з кінця.
 //! Повертає його, якщо успішно,
 //! -1 -- якщо передано нульовий вказівник,
 //! -2 -- якщо стрічка порожня.
-        int my_str_popback(my_str_t *str) {
-            if (str->data == 0)
-                return -1;
-            if (str->size_m == 0)
-                return -2;
-            str->size_m = str->size_m - 1;
-            // *(str->data + str->size_m) = '';
-            return 0;
-        }
+    int my_str_popback(my_str_t *str) {
+        if (str->data == 0)
+            return -1;
+        if (str->size_m == 0)
+            return -2;
+        str->size_m = str->size_m - 1;
+        // *(str->data + str->size_m) = '';
+        return 0;
+    }
 
 //! Копіює стрічку. Якщо reserve == true,
 //! то із тим же розміром буферу, що й вихідна,
@@ -166,69 +166,68 @@ int my_str_getc(const my_str_t *str, size_t index) {
 //! (Старий вміст стрічки перед тим звільняє, за потреби).
 //! Повертає 0, якщо успішно, різні від'ємні числа для діагностики
 //! проблеми некоректних аргументів.
-        int my_str_copy(const my_str_t *from, my_str_t *to, int reserve) {
-            if (!from->data || !to->data)
-                return -1;
-            int status_code = 0;
-            size_t new_capacity = reserve ? from->capacity_m : from->size_m;
-            my_str_free(to);
-            status_code = my_str_create(to, new_capacity);
-            memcpy(to->data, from->data, sizeof(char) * new_capacity);
-            if (status_code)
-                return -2;
-            return 0;
-        }
+    int my_str_copy(const my_str_t *from, my_str_t *to, int reserve) {
+        if (!from->data || !to->data)
+            return -1;
+        int status_code = 0;
+        size_t new_capacity = reserve ? from->capacity_m : from->size_m;
+        my_str_free(to);
+        status_code = my_str_create(to, new_capacity);
+        memcpy(to->data, from->data, sizeof(char) * new_capacity);
+        if (status_code)
+            return -2;
+        return 0;
+    }
 
 //! Очищає стрічку -- робить її порожньою. Складність має бути О(1).
 //! Уточнення (чомусь ця ф-ція викликала багато непорозумінь):
 //! стрічка продовжує існувати, буфер той самий, того ж розміру, що був,
 //! лише містить 0 символів -- єдине, що вона робить, це size_m = 0.
-        void my_str_clear(my_str_t *str) {
-            str->size_m = 0;
-        }
+    void my_str_clear(my_str_t *str) {
+        str->size_m = 0;
+    }
 
 //! Вставити символ у стрічку в заданій позиції, змістивши решту символів праворуч.
 //! За потреби -- збільшує буфер.
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
-        int my_str_insert_c(my_str_t *str, char c, size_t pos) {
-            if (str==0){
-                return -1;
-            }
-            if (str->size_m >= str->capacity_m || pos >= str->size_m){
-                return -2;
-            }
-            size_t size = str->size_m;
-            while (size-- != pos)
-                *(str->data + size + 1) = *(str->data + size);
-            *(str->data + pos) = c;
-            str->size_m++;
-            return 0;
+    int my_str_insert_c(my_str_t *str, char c, size_t pos) {
+        if (str == 0) {
+            return -1;
         }
+        if (str->size_m >= str->capacity_m || pos >= str->size_m) {
+            return -2;
+        }
+        size_t size = str->size_m;
+        while (size-- != pos)
+            *(str->data + size + 1) = *(str->data + size);
+        *(str->data + pos) = c;
+        str->size_m++;
+        return 0;
+    }
 
 //! Вставити стрічку в заданій позиції, змістивши решту символів праворуч.
 //! За потреби -- збільшує буфер.
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
-        int my_str_insert(my_str_t *str, const my_str_t *from, size_t pos){
-            size_t size = str->size_m;
-            size_t insert_size = from->size_m;
-            if(!from||!str){
-                return -1;
-            }
-            if ((str->size_m + from->size_m > capacity_m)||(pos>=str->size_m){
-                my_str_reserve(str,2*str->size_m)
-            }
-            while (size != pos){
-                *(str->data + size + insert_size) = *(str->data + size);
-                size--;
-            }
+    int my_str_insert(my_str_t *str, const my_str_t *from, size_t pos){
+        size_t size = str->size_m;
+        size_t insert_size = from->size_m;
+        if (!from || !str) {
+            return -1;
+        }
+        if (str->size_m + from->size_m > str->capacity_m || pos >= str->size_m) {
+            my_str_reserve(str, str->size_m + from->size_m);
+        }
+        while (size != pos) {
+            *(str->data + size + insert_size) = *(str->data + size);
+            size--;
+        }
 
-            while(insert_size){
-                *(str->data + size + insert_size) = *(from->data + insert_size - 1);
-                insert_size--;
-            }
-
-            str->size_m += from->size_m;
-            return 0;
+        while (insert_size) {
+            *(str->data + size + insert_size) = *(from->data + insert_size - 1);
+            insert_size -= 1;
+        }
+        str->size_m += from->size_m;
+        return 0;
     }
 }
 

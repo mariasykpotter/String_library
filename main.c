@@ -5,4 +5,5 @@
 
 int main(int argc, char *argv[]) {
     my_str_t str;
+    my_str_read_file()
 }

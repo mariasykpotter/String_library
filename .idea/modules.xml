@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/string_library.iml" filepath="$PROJECT_DIR$/.idea/string_library.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/.idea/pok_lab2.iml" filepath="$PROJECT_DIR$/.idea/pok_lab2.iml" />
->>>>>>> 2366ff58c55a3dd38b234e539d984c2b8f1ad355
     </modules>
   </component>
 </project>
