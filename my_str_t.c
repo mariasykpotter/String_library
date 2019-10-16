@@ -41,6 +41,7 @@ int my_str_create(my_str_t *str, size_t buf_size) {
 //! Аналог деструктора інших мов.
 void my_str_free(my_str_t *str) {
 	free(str->data);
+	str->data = 0;
 }
 
 //! Створити стрічку із буфером вказаного розміру із переданої С-стрічки.
@@ -410,6 +411,8 @@ int my_str_read_file(my_str_t *str, FILE *file){
 //! Аналог my_str_read_file, із stdin.
 int my_str_read(my_str_t *str){
 	while(fgets(str->data, (int)(str->capacity_m - str->size_m + 1), stdin)) {
+		if (str->size_m == str->capacity_m)
+			my_str_reserve(str, str->capacity_m * 2);
 	}
 	str->size_m--;
 	return 0;
@@ -417,14 +420,48 @@ int my_str_read(my_str_t *str){
 
 //! Записати стрічку в файл:
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
-int my_str_write_file(const my_str_t *str, FILE *file);
+int my_str_write_file(const my_str_t *str, FILE *file){
+	if (!file || !str->data)
+		return -1;
+	*(str->data + str->size_m) = '\0';
+	int status_code = fputs(str->data, file);
+	if (status_code < 0)
+		return status_code;
+	return 0;
+}
 
 //! Записати стрічку на консоль:
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
-int my_str_write(const my_str_t *str, FILE *file);
+int my_str_write(const my_str_t *str, FILE *file){
+	if (!str->data)
+		return -1;
+	*(str->data + str->size_m) = '\0';
+	int status_code = fputs(str->data, stdout);
+	if (status_code < 0)
+		return status_code;
+	return 0;
+}
 
 //! На відміну від my_str_read_file(), яка читає до кінця файлу,
 //! читає по вказаний delimiter, за потреби
 //! збільшує стрічку.
 //! У випадку помилки повертає різні від'ємні числа, якщо все ОК -- 0.
-int my_str_read_file_delim(my_str_t *str, FILE *file, char delimiter);
+int my_str_read_file_delim(my_str_t *str, FILE *file, char delimiter){
+	if (file==NULL || !str->data){
+		return -1;
+	}
+	while(!feof (file)) {
+		if (fgets(str->data, 1, file)) {
+			if (*(str->data) == delimiter)
+				break;
+			if (str->capacity_m == str->size_m)
+				my_str_reserve(str, str->capacity_m * 2);
+
+			continue;
+		}
+		return -2;
+	}
+	str->size_m--;
+	fclose(file);
+	return 0;
+}
