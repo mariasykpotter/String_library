@@ -560,17 +560,16 @@ int my_str_read_file_delim(my_str_t *str, FILE *file, char delimiter){
         return -1;
     }
     while(!feof (file)) {
-        if (fgets(str->data, 1, file)) {
-            if (*(str->data) == delimiter)
+        if (fgets(str->data, 2, file)) {
+            if (*(str->data + str->size_m) == delimiter)
                 break;
+            str->size_m++;
             if (str->capacity_m == str->size_m)
                 my_str_reserve(str, str->capacity_m * 2);
-
             continue;
         }
         return -2;
     }
-    str->size_m--;
     fclose(file);
     return 0;
 }
