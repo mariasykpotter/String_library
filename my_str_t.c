@@ -504,26 +504,26 @@ int my_str_read_file(my_str_t *str, FILE *file){
         return -1;
     }
 
-    while(!feof (file)) {
-        if (fgets(str->data, (int)(str->capacity_m - str->size_m + 1), file)) {
+    while(!feof(file)) {
+        if (fgets(str->data, 2, file)) {
             if (str->capacity_m == str->size_m)
                 my_str_reserve(str, str->capacity_m * 2);
+            str->size_m++;
             continue;
         }
         return -2;
     }
-    str->size_m--;
     fclose(file);
     return 0;
 }
 
 //! Аналог my_str_read_file, із stdin.
 int my_str_read(my_str_t *str){
-    while(fgets(str->data, (int)(str->capacity_m - str->size_m + 1), stdin)) {
+    while(fgets(str->data, 2, stdin)) {
         if (str->size_m == str->capacity_m)
             my_str_reserve(str, str->capacity_m * 2);
+        str->size_m++;
     }
-    str->size_m--;
     return 0;
 }
 
