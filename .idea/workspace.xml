@@ -12,15 +12,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d49a21f4-b1f7-4906-aa1d-49e646533be4" name="Default Changelist" comment="Great Commit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cpp_string/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cpp_string/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cpp_string/MyString.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/cpp_string/MyString.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cpp_string/MyString.h" beforeDir="false" afterPath="$PROJECT_DIR$/cpp_string/MyString.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/google_tests/files/1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/google_tests/test.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/google_tests/test.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input.txt" beforeDir="false" />
+    <list default="true" id="d49a21f4-b1f7-4906-aa1d-49e646533be4" name="Default Changelist" comment="Last Commit">
+      <change beforePath="$PROJECT_DIR$/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/library/src/my_str_t.c" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/my_str_t.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
@@ -54,7 +47,7 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/google_tests" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -67,6 +60,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\CLionProjects\MyStringLab" />
       <recent name="C:\Users\user\CLionProjects\MyStringLab\cmake-build-debug" />
     </key>
   </component>
@@ -167,7 +161,7 @@
       <workItem from="1571500096745" duration="873000" />
       <workItem from="1571501330309" duration="1560000" />
       <workItem from="1571503040384" duration="5455000" />
-      <workItem from="1571514405960" duration="2905000" />
+      <workItem from="1571514405960" duration="3175000" />
     </task>
     <task id="LOCAL-00001" summary="Great Commit">
       <created>1571500883302</created>
@@ -183,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571503879386</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Last Commit">
+      <created>1571517407151</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1571517407151</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,6 +206,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Great Commit" />
     <MESSAGE value="Googlemock" />
-    <option name="LAST_COMMIT_MESSAGE" value="Googlemock" />
+    <MESSAGE value="Last Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Last Commit" />
   </component>
 </project>

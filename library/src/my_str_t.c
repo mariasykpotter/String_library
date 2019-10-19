@@ -26,7 +26,7 @@ static int my_str_insert_length(my_str_t* str, const char* from, size_t pos, siz
         }
     }
 
-    memmove(str->data + pos + length, str->data + pos, sizeof(char)*(length - pos));
+    memmove(str->data + pos + length, str->data + pos, sizeof(char)*(str->size_m + length - pos));
     memcpy(str->data + pos, from, sizeof(char)*length);
     str->size_m += length;
     return 0;

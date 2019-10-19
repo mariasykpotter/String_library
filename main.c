@@ -151,7 +151,7 @@ int main(int argc, char *argv[]) {
     string_find();
     printf("Count word len average!\n\n");
     FILE* f = fopen("../input.txt", "r");
-    if(word_average(f) < 2)
+    if(word_average(f) < 0)
     {
         printf("something went wrong!");
         return -1;
