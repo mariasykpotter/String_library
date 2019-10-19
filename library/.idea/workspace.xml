@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6f5ccf2d-7211-4d7d-9600-8febe6fadab6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/3.15.4/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/3.15.4/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/3.15.4/CMakeRCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/3.15.4/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/3.15.4/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/3.15.4/CompilerIdC/a.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/CMakeOutput.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/Makefile.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/Makefile2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/MyString.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/MyString.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/MyString.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/MyString.dir/cmake_clean_target.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/MyString.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/MyString.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/MyString.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/MyString.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/Program.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/Program.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/Program.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/Program.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/Program.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/Program.dir/linklibs.rsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/Program.dir/objects1.rsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/Program.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../my_str_t.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../my_str_t.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../string_lib.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../string_lib.h" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\Users\user\CLionProjects\MyStringLab\library\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1SQToM0hUzBqGDopgS96gYbZHM6" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../google_tests" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f5ccf2d-7211-4d7d-9600-8febe6fadab6" name="Default Changelist" comment="" />
+      <created>1571494993107</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1571494993107</updated>
+      <workItem from="1571494994475" duration="991000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
