@@ -512,7 +512,6 @@ int my_str_read_file(my_str_t *str, FILE *file){
     size_t capacity = my_str_capacity(str);
     my_str_free(str);
     my_str_create(str, capacity);
-    printf("%s", str->data);
     int c;
     while((c = fgetc(file)) != EOF) {
         my_str_pushback(str, (char)c);
