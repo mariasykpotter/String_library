@@ -7,3 +7,5 @@ set(SRCS_FILES MyString.cpp MyString.h)
 
 
 add_library(MyString SHARED ${SRCS_FILES})
+add_executable(Program main.cpp)
+target_link_libraries(Program MyString)

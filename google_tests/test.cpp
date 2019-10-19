@@ -215,7 +215,7 @@ TEST_F(StringFixture, test_memory)
 
 TEST_F(StringFixture, test_files_work)
 {
-    const char* file_name = "../files/1.txt";
+    const char* file_name = "1.txt";
     FILE* f = fopen(file_name, "w");
     my_str_t str1, str2;
     const char* cstring = "Hello, World!";
